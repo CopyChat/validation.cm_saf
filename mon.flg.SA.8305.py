@@ -76,9 +76,11 @@ for sta in range(len(station_id)):
 # print all station and it's no of qualitified records
 # all 100 southern.africa are considered here, 
 # so some station has no record under 1983-2005.
+
+# print running log
 for sta in range(len(station_id)):
     TAG[sta] = np.array(np.where(records_tag[sta,:] > 0)).shape[1]
-    print sta,station_id[sta],station_name[sta],TAG[sta]
+    print sta,station_id[sta],station_name[sta],int(TAG[sta])
 
 #=================================================== plotting
 fig, axes = plt.subplots(nrows=1, ncols=1, figsize=(10,8),\
@@ -116,7 +118,7 @@ cb.ax.set_title("number of monthly records")
 print "NO-ZERO,sattion: ",np.count_nonzero(TAG)
 
 title='GEBA monthly RSDS obs in southern Africa 1983-2005 ('+\
-        str(np.count_nonzero(TAG))+' stations )'
+        str(np.count_nonzero(TAG))+' out of 110 GEBA stations)'
 # axx.set_title("\n".join(wrap(title)))
 fig.suptitle(title,fontsize=12)
 

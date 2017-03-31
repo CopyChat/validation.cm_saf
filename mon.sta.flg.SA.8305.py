@@ -33,9 +33,6 @@ station_5year = np.array(pd.read_csv(DIR+STATION_5year,header=None))
 station_id = np.array(pd.read_csv(DIR+STATION_idfile,header=None))[:,0]
 station_name = np.array(pd.read_csv(DIR+STATION_idfile,header=None))[:,3]
 
-print station_name
-
-print station_5year.shape
 #--------------------------------------------------- 
 def justice(flag):
     jjj=999
@@ -61,27 +58,20 @@ def justice(flag):
         jjj = 0
     return jjj 
 #--------------------------------------------------- 
+
 # get no of monthly records:index 3 : 15
-
-print station_5year.shape[0]
 NO_month=np.zeros((12))
-print NO_month
-
 MonthData=station_5year[:,3:15]
-print MonthData.shape
 
-print MonthData[0,11]
+# print running log to stdout
 for month in range(12):
     for sta in range((station_5year).shape[0]):
-        print "month:",month,"station:",sta,"flag:",MonthData[sta,month],"justice",justice(MonthData[sta,month])
+        print "month:",month,"station:",sta,"flag:",\
+                MonthData[sta,month],"justice",justice(MonthData[sta,month])
         if justice(MonthData[sta,month]) == 1 :
             NO_month[month]+=1
-print NO_month
 
 #=================================================== 
-#test the reshape:
-month = np.array(range(1,13,1))
-
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12,7),\
         facecolor='w', edgecolor='k') # figsize=(w,h)
 fig.subplots_adjust(left=0.2)
@@ -89,9 +79,9 @@ fig.subplots_adjust(left=0.2)
 ax.set_ylabel('NO. of monthly record',fontsize=14)
 ax.set_xlabel('Month',fontsize=14)
 
-ax.set_xticks(range(1,13,1))
 
-month12=['Jan','Feb','Mar','Api','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+month12=['Jan','Feb','Mar','Api','May','Jun',\
+        'Jul','Aug','Sep','Oct','Nov','Dec']
 dates=np.arange(len(month12))
 plt.xticks(dates, month12, rotation=0)
 
@@ -99,7 +89,7 @@ ax.set_title(title,fontsize=14)
 
 plt.bar(dates, NO_month, align='center', alpha=0.5)
 
-plt.savefig('monthly.statistic.flag.southern.africa.1983-2005.eps',format='eps')
+plt.savefig('mon.statis.SA.8305.eps',format='eps')
 
 #===================================================  end of subplot 3
 print "done"
