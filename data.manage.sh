@@ -210,7 +210,7 @@ rm flag.rsds.monthly.1970-1999
 
 
 
-exit
+exit 0
 awk '{if (NR%2) {printf "%s ", $2} else {print $2+$3/60,$7+$8/60}}' \
     GEBAdata_2017-21-10_10-53-18_station.Africa.csv > station 
 
@@ -239,7 +239,6 @@ do
     location=$(awk -F "," '$1=='$sta'{printf ",%s,%s,",$2,$3}' station.south.africa.backup)
 
     awk -F "," '$1=='$sta'{print "'$sta'""'$location'"$0",""'$staname'"}' rsds.remove.flag.1970-1999 >> rsds.southern.africa.gt.5year.1970-1999.csv
-
 done
 
 #=================================================== end of validatiaon data praparation
@@ -277,12 +276,12 @@ function monthly()
 {
 
 #--------------------------------------------------- important: which years to consider
-awk -F "," '$3>1969&&$3<2000{print $0}' rsds.remove.flag  > rsds.remove.flag.1970-1999
+    awk -F "," '$3>1969&&$3<2000{print $0}' rsds.remove.flag  > rsds.remove.flag.1970-1999
 #--------------------------------------------------- important: which years to consider
 
 
 #=================================================== get flag for final "255" line plot data
-line2=$(wc -l rsds.southern.africa.gt.5year.1970-1999.csv| awk '{print $1}') # for 255 lines
+    line2=$(wc -l rsds.southern.africa.gt.5year.1970-1999.csv| awk '{print $1}') # for 255 lines
 
 k=0
 for l in {1..$line2}
@@ -339,7 +338,7 @@ done
 
 function merge_yearmean_sta()
 {
-line2=$(cat Fiveyear.rsds | wc -l)
+    line2=$(cat Fiveyear.rsds | wc -l)
 
 for i in $(seq -s ' ' 1 $line2)
 do
@@ -354,4 +353,4 @@ done
 #merge_yearmean_sta
 merge_yearmean_sta > GEBA_5year_Southern_Africa.temp
 #
-rsds.southern.africa.gt.5year.1970-1999.csv
+#rsds.southern.africa.gt.5year.1970-1999.csv
